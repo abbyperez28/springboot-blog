@@ -1,8 +1,20 @@
 package com.codeup.springbootblog.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+//@Table(name = " ")
 public class Ad {
+    @Id @GeneratedValue
     private long id;
+
+    @Column(nullable = false)
     private String title;
+
+    @Column(nullable = true)
     private String description;
 
     public Ad(String title, String description) {

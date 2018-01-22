@@ -1,5 +1,6 @@
 package com.codeup.springbootblog.controllers;
 
+import com.codeup.springbootblog.dao.PostsRepository;
 import com.codeup.springbootblog.models.Post;
 import com.codeup.springbootblog.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,22 @@ public class PostsController {
 //    1. create an instance variable with your dependency
     private final PostService postService;
 
-//    2. Inject the dependency through the constructor and assign it to your instance variable
+    private PostsRepository postDao;
+
     @Autowired
-    public PostsController(PostService postService ) {
-        this.postService = postService;  //This is the first time we assign something to postService
+    public PostsController( PostService postService, PostsRepository postDao ) {
+        this.postService = postService;
+        this.postDao = postDao;
     }
+
+
+//    2. Inject the dependency through the constructor and assign it to your instance variable
+//    @Autowired
+//    public PostsController(PostService postService ) {
+//        this.postService = postService;  //This is the first time we assign something to postService
+//    }
+
+}
 
     @RequestMapping("/posts")
     public String index(Model viewAndModel) {

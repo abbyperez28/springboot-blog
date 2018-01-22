@@ -1,8 +1,23 @@
 package com.codeup.springbootblog.models;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.repository.CrudRepository;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "posts")
 public class Post {
+    @Id @GeneratedValue
     private long id;
+
+    @Column (nullable = false)
     private String title;
+
+    @Column (nullable = true)
     private String body;
 
     public Post() {
@@ -35,5 +50,9 @@ public class Post {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public interface AdsRepository extends CrudRepository<Ad, Long> {
+
     }
 }
