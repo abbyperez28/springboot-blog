@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head></head>
 <body>
 
+<nav th:fragment="navbar-partial" id="navbar-partial" class="navbar navbar-default navbar-partial">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/ads">Post Blog</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/register">Register <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></a></li>
+            <li><a href="/login">Login <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a></li>
+            <li><a href="/profile"><span class="glyphicon glyphicon-user"></span> View Profile</a></li>
+            <li><a href="/ads/create"><span class="glyphicon glyphicon-tag"></span> Create A New Post</a></li>
+            <li><a href="/logout">Logout <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
 </body>
 </html>

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-class PostsController {
+class PostIdController {
 
 //    @GetMapping(path = "/posts")
 //    @ResponseBody

@@ -2,6 +2,7 @@ package com.codeup.springbootblog.services;
 
 import com.codeup.springbootblog.models.Post;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +33,12 @@ public class PostService {
     }
 
     private void createPosts() {
-        // create some ad objects and add them to the ads list
-        // with the save method
+        save (new Post("Post 1", "Body 1"));
+                save (new Post("Post 2", "Body 2"));
+                save (new Post("Post 3", "Body 3"));
     }
 
+    public void update( Post post ) {
+        posts.set((int)post.getId() - 1, post);
+    }
 }

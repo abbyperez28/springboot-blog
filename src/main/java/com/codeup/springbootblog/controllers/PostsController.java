@@ -2,50 +2,74 @@ package com.codeup.springbootblog.controllers;
 
 import com.codeup.springbootblog.models.Post;
 import com.codeup.springbootblog.services.PostService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-class PostsController {
-    private PostService service;
+public class PostsController {
 
-    public PostsController(PostService service) {
-        this.service = service;
+//    <<<HOW TO CREATE A CONSTRUCTOR INJECTION>>
+//    1. create an instance variable with your dependency
+    private final PostService postService;
+
+//    2. Inject the dependency through the constructor and assign it to your instance variable
+    @Autowired
+    public PostsController(PostService postService ) {
+        this.postService = postService;  //This is the first time we assign something to postService
     }
 
     @RequestMapping("/posts")
-    public String showAllPosts(Model viewModel) {
-        List<Post> posts = service.findAll();
-        viewModel.addAttribute("posts", posts);
+    public String index(Model viewAndModel) {
+
+        List<Post> posts = postService.findAll();
+
+        viewAndModel.addAttribute("posts", posts);
+
         return "/posts/index";
     }
 
 
-
-
     @RequestMapping("/posts/{id}")
-    public String showIndividualPost( @PathVariable int id, Model viewModel) {
-        Post post =  service.findOne(id);
+    public String showIndividualPost( @PathVariable long id, Model viewModel) {
+        Post post =  postService.findOne(id);
+
         viewModel.addAttribute("post", post);
+
         return "/posts/show";
     }
 
 
-    @RequestMapping("/posts/create")
-    @ResponseBody
-    public String createPost() {
-        return "view the form for creating a form";
+    @RequestMapping("/posts/new")
+    public String showCreatePostForm(Model viewModel) {
+        Post post = new Post();
+        viewModel.addAttribute("post", post);
+
+        return "/posts/new";
     }
 
     @PostMapping("/posts/create")
-    @ResponseBody
-    public String create() {
-        return "create a new post";
+//    ---Model Attribute brings all of the items of the object-----
+    public String save(@ModelAttribute Post post) {
+    postService.save(post);
+    return post.getTitle();
+    }
+
+//    -----Edit-----
+    @GetMapping("posts/{id}/edit")
+    public String showEditForm(@PathVariable long id, Model viewAndModel) {
+        Post post = postService.findOne(id);
+        viewAndModel.addAttribute("post", post);
+        return "posts/edit";
+    }
+
+//    -----Redirect-----
+    @PostMapping("/posts/edit")
+    public String updatePost(@ModelAttribute Post post){
+    postService.update(post);
+    return "redirect:/posts";
     }
 }
