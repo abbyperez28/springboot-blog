@@ -3,7 +3,6 @@ package com.codeup.springbootblog.controllers;
 import com.codeup.springbootblog.dao.PostDao;
 import com.codeup.springbootblog.models.Post;
 import com.codeup.springbootblog.services.PostService;
-import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
