@@ -1,8 +1,9 @@
 package com.codeup.springbootblog.controllers;
 
-import com.codeup.springbootblog.dao.PostsRepository;
+import com.codeup.springbootblog.dao.PostDao;
 import com.codeup.springbootblog.models.Post;
 import com.codeup.springbootblog.services.PostService;
+import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
@@ -17,10 +18,10 @@ public class PostsController {
 //    1. create an instance variable with your dependency
     private final PostService postService;
 
-    private PostsRepository postDao;
+    private PostDao postDao;
 
     @Autowired
-    public PostsController( PostService postService, PostsRepository postDao ) {
+    public PostsController( PostService postService, PostDao postDao ) {
         this.postService = postService;
         this.postDao = postDao;
     }
@@ -32,15 +33,13 @@ public class PostsController {
 //        this.postService = postService;  //This is the first time we assign something to postService
 //    }
 
-}
 
     @RequestMapping("/posts")
     public String index(Model viewAndModel) {
 
-        List<Post> posts = postService.findAll();
-
+//        List<Post> posts = postService.findAll();
+        Iterable<Post> posts = postService.findAll();
         viewAndModel.addAttribute("posts", posts);
-
         return "/posts/index";
     }
 
@@ -78,10 +77,25 @@ public class PostsController {
         return "posts/edit";
     }
 
-//    -----Redirect-----
-    @PostMapping("/posts/edit")
-    public String updatePost(@ModelAttribute Post post){
-    postService.update(post);
-    return "redirect:/posts";
+////    -----Redirect-----
+//    @PostMapping("/posts/edit")
+//    public String updatePost(@ModelAttribute Post post){
+//    postService.update(post);
+//    return "redirect:/posts";
+//    }
+
+//    ----Edit----
+    @PostMapping("/posts/{id}/edit")
+    public String updatePost(@PathVariable long id, @ModelAttribute Post post) {
+        post.setId(id);
+        postService.save(post);
+        return "redirect:/posts";
+    }
+
+//    -----Delete-----
+    @PostMapping("/posts/{id}/delete")
+    public String delete(@PathVariable long id) {
+        postService.delete(id);
+        return "redirect:/posts";
     }
 }

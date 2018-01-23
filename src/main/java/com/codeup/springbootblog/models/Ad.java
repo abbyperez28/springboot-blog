@@ -1,12 +1,9 @@
 package com.codeup.springbootblog.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-//@Table(name = " ")
+@Table(name = "ads")
 public class Ad {
     @Id @GeneratedValue
     private long id;
