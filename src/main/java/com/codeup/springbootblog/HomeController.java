@@ -14,7 +14,7 @@ public class HomeController {
         this.adDao = adDao;
     }
 
-    @GetMapping("/")
+//    @GetMapping("/")
     public String index() {
         return "home";
     }

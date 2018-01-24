@@ -33,7 +33,7 @@ public class PostsController {
 //    }
 
 
-    @RequestMapping("/posts")
+    @RequestMapping({"/posts", "/"})
     public String index(Model viewAndModel) {
 
 //        List<Post> posts = postService.findAll();
